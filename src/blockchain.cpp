@@ -51,6 +51,10 @@ Blockchain::Blockchain(long unsigned int try_limit = 10000,
                        float diff_redux_time = 0.5)
 { 
     this->try_limit = try_limit; 
+
+    if(!difficulty_limit || !try_limit)
+        throw "diff_threshold and try_limit cannot be zero!";
+
     this->difficulty_limit = difficulty_limit;
     this->difficulty = 1;
 
