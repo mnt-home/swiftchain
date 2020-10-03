@@ -9,6 +9,7 @@
   - [Various Methods](#various-methods)
   - [Getters and Setters](#getters-and-setters)
 ---
+
 # The Blockchain Class
 
 The Blockchain class is used to generate a Blockchain object, which contains a ledger and various methods for interacting with said ledger.
@@ -24,15 +25,15 @@ Generally speaking, all arguments in the constructor are optional and have defau
 ```python
 Blockchain(try_limit = 10000, diff_threshold = 100, node_addr = "UNSET", g_data = "", redux_time = 0.5)
 ```
-**Parameters:**
+**Parameters:** 
 
 * ```try_limit```: The maximum number of hashes generated for each mining attempt.
 * ```diff_threshold```: The number of Block objects in the ledger at which the difficulty is incremented.
-* ```node_addr```: Some user identifier, as a string.
+* ```node_addr```: Some user identifier, as a string. 
 * ```genesis_data```: The data to be stored in the Genesis block.
 * ```diff_redux_time```: The timespan in hours that has to pass between Blocks in order for the difficulty to be halfed.
 
-The ```try_limit``` and ``diff_threshold``` parameters are the parameters that specify how hard it is to mine a new block on the Blockchain. These parameters cannot be zero.
+The ```try_limit``` and ```diff_threshold``` parameters are the parameters that specify how hard it is to mine a new block on the Blockchain. These parameters cannot be zero.
 
 # Blockchain API
 
@@ -49,28 +50,29 @@ If more precise control over the mining process is required, use these methods.
 ```python
 mine_block(data, node_addr, meta_data = "")
 ```
-*Parameters:*
+*Parameters:* 
 
 * ```data```: Some data to be stored in the new block.
 * ```node_address```: Some user identifier as a string.
 * ```meta_data```: The metadata to be contained in the new block.
 
 This method tries to mine a Block object on this Blockchain. This method does not take
-advantage of multi-processing. If a block should be mined in parallel,
+advantage of multi-processing. If a block should be mined in parallel, 
 use the mine_block_concurrently(string, string) method.
 Appends a new Block to the ledger and returns it on success, returns ```None``` on failure.
 
 -----------------------------------------------------------------------------------------------------
 ```python
-mine_block_concurrently(data, node_addr, meta_data = "")
+mine_block_concurrently(data, node_addr, meta_data = "", threads = 5)
 ```
 *Parameters:*
 
 * ```data```: The data to be stored in the new block, as a string.
-* ```node_address```: A string identifier of a blockchain user.
+* ```node_address```: A string identifier of a blockchain user. 
 * ```meta_data```: The metadata to be contained in the new block.
+* ```threads```: threads: The number of threads to be used. If only fewer threads are available, the maximum - 1 will be used. 
 
-This method tries to mine a single block in multiple threads.
+This method tries to mine a single block in multiple threads. 
 If an attempt should be started on a single thread, use ```mine_block```.
 
 ## Ledger Access Methods
@@ -94,28 +96,28 @@ get_blocks_by_range(range)
 Returns a range of Blocks from the ledger as a vector. If the range exceeds the size of
 the ledger, an out_of_bounds exception is thrown. Blocks are ordered by ID in ascending order.
 
-----------------------------------------------------------------------------------------------------
-```python
-get_block(hash)
-```
-
-*Parameters:*
-
-* ```hash```: A block hash as a string.
-
-Find a Block object in the ledger by hash.
-Returns a Block object on success, ```None``` on failure.
-
 -----------------------------------------------------------------------------------------------------
 ```python
 get_block_by_index(index)
 ```
 
-*Parameters:*
+*Parameters:* 
 
-* ```index```: The index of the relevant Block object in the Blockchain
+* ```index```: The index of the relevant Block object in the Blockchain.
 
 Get the Block object at the specified index in the ledger.
+
+----------------------------------------------------------------------------------------------------
+```python
+get_block(hash)
+```
+
+*Parameters:* 
+
+* ```hash```: A block hash as a string.
+
+Find a Block object in the ledger by hash.
+Returns a Block object on success, ```None``` on failure.
 
 ## Various Methods
 
@@ -124,13 +126,13 @@ Get the Block object at the specified index in the ledger.
 find_consensus(f_chain)
 ```
 
-*Parameters:*
+*Parameters:* 
 
 * ```chain```: Another Blockchain object to be used in the consensus algorithm.
 
-This method attempts to find a consensus between to ledgers by comparing the cumulative
+This method attempts to find a consensus between to ledgers by comparing the cumulative 
 proof-of-work contained in the ledger.
-If the foreign Blockchain contains more cumulative proof-of-work, the ledger of the calling Blockchain object
+If the foreign Blockchain contains more cumulative proof-of-work, the ledger of the calling Blockchain object 
 is replaced. If this is the case, this method returns true. Else it returns false.*/
 
 ---------------------------------------------------------------------------------------------------
@@ -143,10 +145,10 @@ Checks if the conditions for adjusting the difficulty of the Blockchain are met 
 ```python
 verify_block(block)
 ```
-*Parameters:*
+*Parameters:* 
 
 * ```block```: Any block object to be validated.
-
+ 
 Tries to verify a given block against the whole Blockchain.
 Returns true on success, false on failure.
 
